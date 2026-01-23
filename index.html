@@ -2,8 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Forever Living – Bien-être Naturel</title>
+<title>Forever Living – Commande WhatsApp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -11,52 +12,81 @@ body {
     background: #f4f9f4;
     color: #333;
 }
+
 header {
     background: #2e8b57;
     color: white;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
 }
+
 .container {
+    max-width: 600px;
+    margin: 30px auto;
     padding: 20px;
-    max-width: 1200px;
-    margin: auto;
 }
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
+
 .product {
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 20px;
     text-align: center;
 }
+
 .product img {
     max-width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: contain;
+    margin-bottom: 15px;
 }
+
 .price {
-    font-size: 20px;
+    font-size: 22px;
     color: #2e8b57;
     font-weight: bold;
-    margin: 10px 0;
+    margin-bottom: 20px;
 }
+
+form {
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+textarea {
+    resize: none;
+}
+
 button {
+    width: 100%;
+    margin-top: 20px;
     background: #25D366;
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 5px;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 6px;
     cursor: pointer;
 }
+
 button:hover {
     background: #1ebe5d;
 }
+
 footer {
     background: #2e8b57;
     color: white;
@@ -71,51 +101,57 @@ footer {
 
 <header>
     <h1>Forever Living Products</h1>
-    <p>Des solutions naturelles pour votre bien-être</p>
+    <p>Commande rapide via WhatsApp</p>
 </header>
 
 <div class="container">
-    <div class="products">
 
-        <!-- PRODUIT 1 -->
-        <div class="product">
-            <img src="https://via.placeholder.com/300x200?text=Aloe+Vera+Gel">
-            <h3>Aloe Vera Gel</h3>
-            <p>Favorise la digestion, renforce l’immunité et améliore l’énergie au quotidien.</p>
-            <div class="price">350 DH</div>
-            <button onclick="orderWhatsApp('Aloe Vera Gel')">Commander sur WhatsApp</button>
-        </div>
+    <div class="product">
+        <img src="aloe vera heat lotion.png" alt="Aloe Vera Heat Lotion">
+        <h2>Aloe Vera Heat Lotion</h2>
+        <p>Lotion chauffante naturelle pour soulager les muscles et les articulations.</p>
+        <div class="price">250 DH</div>
 
-        <!-- PRODUIT 2 -->
-        <div class="product">
-            <img src="https://via.placeholder.com/300x200?text=Forever+Bee+Honey">
-            <h3>Forever Bee Honey</h3>
-            <p>Miel pur enrichi en gelée royale pour booster la vitalité et la résistance.</p>
-            <div class="price">280 DH</div>
-            <button onclick="orderWhatsApp('Forever Bee Honey')">Commander sur WhatsApp</button>
-        </div>
+        <form onsubmit="sendWhatsApp(); return false;">
+            <label>Désignation du produit</label>
+            <input type="text" id="product" value="Aloe Vera Heat Lotion - 250 DH" readonly>
 
-        <!-- PRODUIT 3 -->
-        <div class="product">
-            <img src="https://via.placeholder.com/300x200?text=Forever+Arctic+Sea">
-            <h3>Forever Arctic Sea</h3>
-            <p>Oméga 3 & 9 pour la santé du cœur, du cerveau et des articulations.</p>
-            <div class="price">420 DH</div>
-            <button onclick="orderWhatsApp('Forever Arctic Sea')">Commander sur WhatsApp</button>
-        </div>
+            <label>Nom & Prénom</label>
+            <input type="text" id="name" required>
 
+            <label>Téléphone</label>
+            <input type="tel" id="phone" required>
+
+            <label>Adresse complète de réception</label>
+            <textarea id="address" rows="3" required></textarea>
+
+            <button type="submit">Commander sur WhatsApp</button>
+        </form>
     </div>
+
 </div>
 
 <footer>
-    <p>Commandez facilement via WhatsApp • Livraison rapide</p>
+    <p>Livraison rapide • Paiement à la livraison</p>
 </footer>
 
 <script>
-function orderWhatsApp(productName) {
-    const phone = "212623524354";
-    const message = `Bonjour, je souhaite commander le produit : ${productName}`;
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+function sendWhatsApp() {
+    const whatsappNumber = "212623524354";
+
+    const product = document.getElementById("product").value;
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+
+    const message =
+        `🛒 *Nouvelle commande*\n\n` +
+        `📦 Produit : ${product}\n` +
+        `👤 Nom : ${name}\n` +
+        `📞 Téléphone : ${phone}\n` +
+        `📍 Adresse : ${address}`;
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
 }
 </script>
